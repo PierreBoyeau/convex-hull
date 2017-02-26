@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Pierre Alliez</author>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>578</width>
+    <height>384</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CGAL - 2D Convex hull</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout">
+    <item row="0" column="0">
+     <widget class="GlViewer" name="viewer" native="true">
+      <property name="locale">
+       <locale language="English" country="UnitedStates"/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>578</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="actionClear"/>
+    <addaction name="actionRandom"/>
+   </widget>
+   <addaction name="menuData"/>
+  </widget>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/fileNew.png</normaloff>icons/fileNew.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="statusTip">
+    <string>Clear</string>
+   </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
+  </action>
+  <action name="actionRandom">
+   <property name="text">
+    <string>Random</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GlViewer</class>
+   <extends>QWidget</extends>
+   <header>glviewer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,27 @@
+Verifier la variable d'environnement CGAL_DIR 
+
+Ouvrir cmake
+
+Faire un drag & drop du fichier CMakeLists.txt dans le champ
+"where is the source code" de CMake.
+
+Recopier la ligne "source code" dans la ligne "where to build the binaries"
+et ajouter "/build" a la fin.
+
+Sous Windows
+===========
+
+Presser le bouton configure, sélectionner Visual Studio 11 (ou votre version), 
+use default native compiler, puis finish.
+
+Eventuellement, completer la ligne "QT_QMAKE_EXECUTABLE" en sélectionnant votre
+fichier qmake.exe sous Qt/bin. 
+
+Presser le bouton "Generate"
+
+Aller dans le sous-repertoire build et ouvrir la solution (extension .sln)
+puis compier sous Visual C++. 
+
+
+
+
