@@ -30,6 +30,8 @@ private:
 	// input points and hull
 	std::list<Point> m_points;
 	std::list<Point> m_hull;
+        std::list<Point> m_lower_hull;
+        std::list<Point> m_upper_hull;
 
 	Point m_mouse_pos;
 
@@ -73,6 +75,7 @@ public:
 
 		// recompute convex hull
 		convex_hull(); 
+                hulls();
 	}
 
 	void set_mouse_pos(const Point& pos) {  m_mouse_pos = pos; }
@@ -80,7 +83,7 @@ public:
 
 	void render()
 	{
-		// render points
+                // render points
 		::glColor3ub(0, 0, 0); // black color
 		::glPointSize(2.0f);
 
@@ -94,16 +97,39 @@ public:
 		::glEnd();
 
 		// render hull
-		::glColor3ub(255, 0, 0); // red color
-		::glLineWidth(3.0f);
+//		::glColor3ub(255, 0, 0); // red color
+//		::glLineWidth(3.0f);
 
-		::glBegin(GL_LINE_LOOP);
-		for(it = m_hull.begin(); it != m_hull.end(); it++)
-		{
-			const Point& p = *it;
-			::glVertex2d(p.x(), p.y());
-		}
-		::glEnd();
+//		::glBegin(GL_LINE_LOOP);
+//		for(it = m_hull.begin(); it != m_hull.end(); it++)
+//		{
+//			const Point& p = *it;
+//			::glVertex2d(p.x(), p.y());
+//		}
+//		::glEnd();
+
+                // lower hull
+                ::glColor3ub(0, 255, 0);
+                ::glLineWidth(3.0f);
+                ::glBegin(GL_LINE_STRIP);
+                
+                for(it = m_lower_hull.begin(); it != m_lower_hull.end(); it++)
+                {
+                        const Point& p = *it;
+                        ::glVertex2d(p.x(), p.y());
+                }
+                ::glEnd();
+
+                // upper hull
+                ::glColor3ub(0, 0, 255);
+                ::glLineWidth(3.0f);
+                ::glBegin(GL_LINE_STRIP);
+                for(it = m_upper_hull.begin(); it != m_upper_hull.end(); it++)
+                {
+                        const Point& p = *it;
+                        ::glVertex2d(p.x(), p.y());
+                }
+                ::glEnd();
 
 	}
 
@@ -113,8 +139,33 @@ public:
 
 	void convex_hull()
 	{
-		// TODO: recompute hull from points
-	}
+		// TODO: recompute hull from points;
+                m_hull.clear();
+                CGAL::convex_hull_2(m_points.begin(), m_points.end(), std::inserter(m_hull,
+                                                                                    m_hull.begin()));
+        }
+
+        void upper_hull()
+        {
+                m_upper_hull.clear();
+                CGAL::upper_hull_points_2(m_points.begin(), m_points.end(), std::inserter(m_upper_hull,
+                                                                                    m_upper_hull.begin()));
+        }
+
+        void lower_hull()
+        {
+                m_lower_hull.clear();
+                CGAL::lower_hull_points_2(m_points.begin(), m_points.end(), std::inserter(m_lower_hull,
+                                                                                    m_lower_hull.begin()));
+        }
+
+        void hulls()
+        {
+            lower_hull();
+            upper_hull();
+            m_lower_hull.push_back(m_upper_hull.front());
+            m_upper_hull.push_back(m_lower_hull.front());
+        }
 
 };
 
